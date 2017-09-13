@@ -1,0 +1,53 @@
+Christopher Torralba
+Section J
+9/1/15
+Assignment 1 - Algorithms
+
+Password Algorithm
+1. Position yourself at the beginning of the password
+2. Set character count to 0, set non-alphabetic character to false, set
+digit to false, set uppercase alphabetic character to false
+3. If there are no more characters and digits in the password, go to step 7
+4. Read character/digit, if it is a non-alphabetic character set
+non-alphabetic character to true, if it is a digit set digit to true, if it
+is an uppercase alphabetic character set uppercase alphabetic character as
+true.
+5. Move position to next character, increment the character count by 1.
+6. Repeat steps 3-5
+7. When Non-alphabetic character, digit, and uppercase alphabetic character
+are set to true, and character count is greater than 7 mark as valid,
+otherwise mark as invalid.
+
+Dog Algorithm
+1. Set doggy treats = 4
+2. Look at your wrist watch
+3. If time is at 7am-8pm go to step 3, otherwise place him inside the
+neighbors house.
+4. If time is at either 10am-noon or 2pm-2:10pm, or if a stranger decides to
+come visit, throw a doggy treat to a nearby tree and chain the dog to the
+tree until the mailman/lawn keeper/stranger leaves. Each time decrease doggy
+treats by 1. When having to use more than one doggy treat within an hour due
+to strangers, instead of giving the dog another doggy treat and chaining
+him to a tree, place him inside until the mailman/lawn keeper/stranger
+leaves. When doggy treats = 0, place him inside whenever a mailman/lawn
+keeper/stranger is coming.
+5. Otherwise place the dog outside.
+6. Anytime the dog shows signs of needing water, give him fresh water.
+7. Whenever dog shows signs of needing to go to the bathroom, put him
+outside until hes done. If already outside do nothing to the dog until hes
+done.
+8. Repeat steps 2-7
+
+Lexicographic Difference Algorithm
+1. Identify the two words
+2. Position yourself at the beginning of the two words
+3. If there is no more characters in either words mark a "null character" to
+the corresponding word and go to step 7.
+4. If the two letters are the same in both capitilization and letter move
+your position to the next letter.
+5. When there are two different letters or capitalization go on to step 7
+6. Repeat steps 2-5
+7. Let A=65, B=666,...Z=90 also let a=97, b=98...z=122 and "null
+character"=0
+8. Take the value of the two different letters and subtract them and then
+take the absolute value of the solution.

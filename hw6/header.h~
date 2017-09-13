@@ -1,0 +1,140 @@
+/*
+Programmer: Christopher Torralba		Date: 10/10/15
+Section: J
+File Name: header.h
+Purpose: Contains the function prototypes for the optimizedDecoder.cpp
+*/
+
+#ifndef header_h
+#define header_h
+
+#include <iostream>
+using namespace std;
+
+//*******************************
+//Constants
+//*******************************
+const short LEAST_NUM_DISK = 1;
+const short GREAT_NUM_DISK = 5;
+const short NOT_ASCII = 65;
+const short CYCLE_BACK_NUM = 26;
+const short D1_ADD = 3;
+const short D2_ADD = 17;
+const short D12_MOD = 26;
+const short D12_FINAL_ADD = 65;
+const short D45_EVENCHECK = 2;
+const short D4_ISEVEN = 0;
+const short D45_MODIFIER = 1;
+const short D5_MULTIPLE3 = 3;
+/******************************
+//Function Prototypes
+
+Displays a greeting to the user.
+Preconditions: None
+Postconditions: A message has been output to the screen.
+*/
+void greeting();
+
+/*
+Validates rotor input based off whether the rotor is between 1 and 5
+Preconditions: The user has already input a number for this function to check
+Postconditions: Returns a validated value between 1 and 5
+*/
+short diskNumCheck(short rotor);
+
+/*
+Prompt and validates user input for the left rotor
+Preconditions: None
+Postconditions: Returns a valid disk number for the left rotor
+*/
+short diskInputLeft();
+
+/*
+Prompts and validates user input for the middle rotor
+Preconditions: The left rotor has to already be declared with a disk.
+Postconditions: Returns a valid disk number for the middle rotor
+*/
+short diskInputMid(short first_rotor);
+
+/*
+Prompts and validates user input for the last rotor
+Preconditions: The left and middle rotors has to be already declared with
+		a disk.
+Postconditions: Returns a valid disk number for the right rotor.
+*/
+short diskInputRight(short first_rotor, short second_rotor);
+
+/*
+Shifts a character according to the previous input used by the rotor.
+If the shift is over Z then the shift is reverted back to A and shifts 
+it from there.
+Preconditions: inputChar and PrevInput has to be an ASCII value between 
+	A-Z (65-90).
+Postconditions: Returns a character that is shifted by the previous character.
+*/
+char charShift(const char inputChar, char prevInput);
+
+/*
+Sorts the left, middle, and right rotors with associated discs as a 
+	character is being put in
+Preconditions: A character has to be between A-Z, and the rotors have to
+	be declared with disks.
+Postconditions: A decrypted character from a disc is returned.
+*/
+char rotor_Input (const short rotor, const char charInput);
+
+/*
+Prompt and validate a character between A-Z, underscore and a period.
+Preconditions: None
+Postconditions: A valid character is returned
+*/
+char charCheck();
+
+/*
+Converts a character to another character based off the function of Rotor 1
+Preconditions: Must input a character and contain the shift
+		value of previous use of this rotor
+Postconditions: Outputs a character and variable shift for next use
+*/
+char disc_1(const char input);
+
+/*
+Converts a character to another character based off the function of Rotor 2
+Preconditions: Must input a character and contain the shift
+		value of previous use of this rotor
+Postconditions: Outputs a character and variable shift for next use
+*/
+char disc_2(const char input);
+
+/*
+Converts a character to another character based off the function of Rotor 3
+Preconditions: Must input a character and contain the shift 
+		value of previous use of this rotor
+Postconditions: Outputs a character and variable shift for next use
+*/
+char disc_3(const char input);
+
+/*
+Converts a character to another character based off the function of Rotor 4
+Preconditions: Must input a character and contain the shift
+		value of previous use of this rotor
+Postconditions: Outputs a character and variable shift for next use
+*/
+char disc_4(const char input);
+
+/*
+Converts a character to another character based off the function of Rotor 5
+Preconditions: Must input a character and contain the shift 
+		value of previous use of this rotor
+Postconditions: Outputs a character and variable shift for next use
+*/
+char disc_5(const char input);
+
+/*
+Displays a signoff to the user.
+Preconditions: None
+Postconditions: A message has been output to the screen.
+*/
+void signoff();
+
+#endif

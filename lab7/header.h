@@ -1,0 +1,28 @@
+//Programmer: Christopher Torralba Date: 10/7/15
+//Section: F
+//File: header.h
+//Purpose: Holds the function prototypes for the ATM lab
+#ifndef HEADER_H
+#define HEADER_H
+
+#include <iostream>
+using namespace std;
+
+//Function Prototypes
+/*
+Deposits money into the ATM
+Preconditions: Must be given a cash value and uses the previous balance from
+other calls of the function
+Postconditions: Adds a cash value into the balance.
+*/
+void deposit (int cash, int &balance);
+
+/*
+Withdraw money into the ATM
+Preconditions: Must be asked to withdraw a cash value using the previous
+balance from other calls of the function
+Postconditions: Subtracts a cash value from the balance.
+*/
+void withdraw (int cash, int &balance);
+
+#endif

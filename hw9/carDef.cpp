@@ -1,0 +1,77 @@
+/*
+Programmer: Christopher Torralba      Date:11/9/2015
+Instructor: Leopold
+Section: J
+Purpose: Holds the definitions for car.
+*/
+#include "car.h"
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+    
+Car::Car()
+{
+  //default constructor
+  srand(time(NULL));
+  m_width = STARTWIDTH;
+  m_damage = STARTDAMAGE;
+  m_battery = (rand() % BATTERYRANGE + BATTERYSTART);
+  m_symbol = STARTSYMBOL;
+  m_pos = CARPOS;
+}
+
+void Car::incrBattery(int obstacleWeight)
+{
+  //proper weight check
+  do
+  {
+    if (obstacleWeight <= OBSWEIGHTCHECK)
+    {
+      cout << "Input a proper obstacle weight (positive values)" << endl;
+      cin >> obstacleWeight;
+    }
+  }while (obstacleWeight <= OBSWEIGHTCHECK);
+  m_battery = m_battery + (obstacleWeight/HALFOBSWEIGHT);
+  //if over 100 it sets the battery to 100.
+  if (m_battery > OVER100)
+  {
+    m_battery = OVER100;
+  }
+  return;
+}
+
+void Car::incrDamage(int obstacleWeight)
+{
+  //proper obstacle weight check
+  do
+  {
+    if (obstacleWeight <= OBSWEIGHTCHECK)
+    {
+      cout << "Input a proper obstacle weight (positive values)" << endl;
+      cin >> obstacleWeight;
+    }
+  }while (obstacleWeight <= OBSWEIGHTCHECK);  
+  m_damage = m_damage + (obstacleWeight/TENTHOBSWEIGHT);
+  //if over 100 it just sets damage to 100
+  if (m_damage > OVER100)
+  {
+    m_damage = OVER100;
+  }
+  return;
+}
+
+void Car::enter_a_road(Road& r)
+{
+  //check for legal values set in place_car function.
+  r.place_car(m_width, m_pos, m_symbol);
+  return;
+}
+
+ostream& operator<< (ostream&outs, const Car& c)
+{
+  outs << "Car: " << c.m_symbol << ". "
+       << c.m_width << " wide. " << c.m_battery << "% battery life. "
+       << c.m_damage << " damaged.";
+  return (outs);
+}

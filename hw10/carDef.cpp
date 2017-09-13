@@ -1,0 +1,112 @@
+/*
+Programmer: Christopher Torralba      Date:11/19/2015
+Instructor: Leopold
+Section: J
+Purpose: The implementation file for the car class.
+*/
+#include "car.h"
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+    
+Car::Car()
+{
+  //default constructor
+  m_width = STARTWIDTH;
+  m_damage = STARTDAMAGE;
+  m_battery = (rand() % BATTERYRANGE + BATTERYSTART);
+  m_symbol = STARTSYMBOL;
+  m_eScore = STARTESCORE;
+}
+
+void Car::incrBattery(int obstacleWeight)
+{
+  //proper weight check
+  do
+  {
+    if (obstacleWeight <= OBSWEIGHTCHECK)
+    {
+      cout << "Input a proper obstacle weight (positive values)" << endl;
+      cin >> obstacleWeight;
+    }
+  }while (obstacleWeight <= OBSWEIGHTCHECK);
+  m_battery = m_battery + (static_cast<float>(obstacleWeight)/HALFOBSWEIGHT);
+  //if over 100 it sets the battery to 100.
+  if (m_battery > OVER100)
+  {
+    m_battery = OVER100;
+  }
+  return;
+}
+
+void Car::incrDamage(int obstacleWeight)
+{
+  //proper obstacle weight check
+  if (obstacleWeight > OBSWEIGHTCHECK) 
+  {
+   m_damage = m_damage +  
+              static_cast<float>(obstacleWeight)/TENTHOBSWEIGHT;
+              
+   if (m_damage > OVER100)
+   {
+     m_damage = OVER100;
+   }
+  }
+  return;
+}
+
+void Car::enter_a_road(Road& r, const int mostLeftPos)
+{
+  //check to not wander off road
+  if ((mostLeftPos >= 0) && (mostLeftPos <= r.getWidth()-m_width))
+  {
+    r.place_obj(m_width, mostLeftPos, m_symbol);
+    m_carLeftPos = mostLeftPos;
+  }
+  return;
+}
+
+ostream& operator<< (ostream&outs, const Car& c)
+{
+  outs << "Car: " << c.m_symbol << ". "
+       << c.m_width << " wide. " << c.m_battery << "% battery life. "
+       << c.m_damage << "% damaged.";
+  return (outs);
+}
+
+void Car::batteryOverTime()
+{
+  m_battery -= BATTERYTIME;
+  if (m_battery < BATTCHECK)
+  {
+    m_battery = BATTCHECK;
+  }
+  return;
+}
+
+void Car::setDamage(const int damage)
+{
+  if ((damage < LOWESTDAMAGE) || (damage > FULLDAMAGE))
+  {
+    if (damage < LOWESTDAMAGE)
+    {
+      m_damage = LOWESTDAMAGE;
+    }
+    if (damage > FULLDAMAGE)
+    {
+      m_damage = FULLDAMAGE;
+    }
+  }
+  else
+  {
+    m_damage = damage;
+  }
+  return;
+}
+
+void Car::incrEScore(const int weight)
+{
+  m_eScore += weight;
+  return;
+}

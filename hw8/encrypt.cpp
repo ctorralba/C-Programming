@@ -1,0 +1,194 @@
+/*
+Programmer: Christopher Torralba	Date: 10/29/15
+Instructor: Leopold
+Section: J
+Purpose: To encrypt messages from user input or from a file
+and output it into a .dat file.
+*/
+
+#include "header.h"
+
+#include <iostream>
+#include <fstream>
+#include <string.h>
+#include <ctime>
+#include <cstdlib>
+using namespace std;
+
+int main()
+{  
+  ifstream fin;
+  ofstream fout;
+  string inputfile;
+  short insertionNum;
+  short beginEndAppend;
+  char words[MAX_WORDS][MAX_WORD_LENGTH];
+  char oneWord[MAX_WORD_LENGTH];
+  char sentence[SENTENCE_LEN];
+  char quit;
+  char userInput;
+  int numWordsInSentence;
+  int i, k;
+  bool hasHomerism;
+  
+  cout << "Would you like to enter input from keyboard (k) or from file (f)?";
+  cout << endl;
+  do
+  {
+    cin >> userInput;
+    if ((userInput != 'k') && (userInput != 'f'))
+    {
+      cout << "That is not an option, choose from k or f" << endl;
+    }
+  }while ((userInput != 'k') && (userInput != 'f'));
+  cin.ignore(500, '\n');
+  if (userInput == 'k')
+  {
+    fout.open("homerfried.dat"); //opening output file
+    cout << "Enter your input" << endl;
+    do
+    {
+      cin.getline(sentence, SENTENCE_LEN, '.'); //user input for keyboard
+      numWordsInSentence = INITIALIZER;
+      i = INITIALIZER;
+      while (i < strlen(sentence))
+      {
+      // makes a word
+        k = INITIALIZER;
+	while ((sentence[i] != ' ') && (i < strlen(sentence)))
+	  oneWord[k++] = sentence[i++];
+		
+	i++; //increment past the while
+	oneWord[k] = '\0';  // null-terminate the word
+	// put the word in the array of words and increment count
+	if ((strlen(oneWord) > INITIALIZER) && (isalpha(oneWord[INITIALIZER])))
+        {
+	  strcpy(words[numWordsInSentence], oneWord);
+	  numWordsInSentence++;
+	}
+      }
+      hasHomerism = false; //for each sentence read reset this
+      beginEndAppend = rand () % HALFTHETIME;
+      if (beginEndAppend == INITIALIZER)
+      {
+        fout << "I mean ";
+      }
+      for (short i = INITIALIZER; i < numWordsInSentence; i++)
+      {
+        if (!(uY_End(words[i])))
+        {
+ 	  vowelEnd(words[i]);
+	  ionCheck(words[i]);
+          theCheck(words[i]);
+	  if (i % 2 != 0)  //if its not an even # word it gets reversed
+	  {
+	    reverse(words[i]);
+	  }
+	  if (i != (numWordsInSentence-1)) //if the word # is not the last one
+	  {	                               //in a sentence
+	    insertionNum = rand() % numWordsInSentence;
+	    fout << words[i] << " ";	     
+	    if ((i == insertionNum) && (hasHomerism == false))
+	    {
+	      insertHomerism(fout);
+	      hasHomerism = true;
+	    }
+	  }
+	  else
+	  {
+	    if (hasHomerism == false)
+	    {
+	      insertHomerism(fout);
+	      hasHomerism = true;
+	    }
+	    fout << words[i];
+	    if (beginEndAppend == APPENDEND)
+	    {
+	      fout << ", n'stuff";
+	    }
+            fout << ".";
+	  }
+	}
+      }
+      cout << "Do you want to quit? (q). Otherwise continue typing." << endl;
+      cin >> quit;
+      cin.ignore (500, '\n');
+    }while (quit != 'q');
+  }
+  if (userInput == 'f') //for the file case
+  {
+    do
+    {//Getting the File
+      fin.clear();
+      cout << "Enter name of file to encrypt: " << endl;
+      getline(cin, inputfile);
+      fin.open(inputfile.c_str());
+      if (!fin)
+      cout << "Unable to open file..." << endl;
+    }while (!fin);
+    fout.open("homerfried.dat");
+    srand(time(NULL));
+    while (fin.getline(sentence, SENTENCE_LEN, '.'))
+    {
+      numWordsInSentence = INITIALIZER;
+      i = INITIALIZER;
+      while (i < strlen(sentence))
+      {
+        k = INITIALIZER;
+        while ((sentence[i] != ' ') && (i < strlen(sentence)))
+        oneWord[k++] = sentence[i++];
+        i++; 
+        oneWord[k] = '\0';
+        if (strlen(oneWord) > INITIALIZER)
+        {
+          strcpy(words[numWordsInSentence], oneWord);
+          numWordsInSentence++;
+        }
+      }
+      hasHomerism = false;
+      beginEndAppend = rand () % HALFTHETIME;
+      if (beginEndAppend == INITIALIZER)
+      {
+        fout << "I mean ";
+      }
+      for (short i = INITIALIZER; i < numWordsInSentence; i++)
+      {
+        if (!(uY_End(words[i])))
+	{
+	  vowelEnd(words[i]);
+          ionCheck(words[i]);
+          theCheck(words[i]);
+          if (i % HALFTHETIME != INITIALIZER)
+	  {
+	    reverse(words[i]);
+	  }
+	  if (i != (numWordsInSentence-LASTLETTER))
+	  {
+	    insertionNum = rand() % numWordsInSentence;
+	    fout << words[i] << " ";	     
+	    if ((i == insertionNum) && (hasHomerism == false))
+	    {
+	      insertHomerism(fout);
+	      hasHomerism = true;
+	    }
+	  }
+	  else
+	  {
+	    if (hasHomerism == false)
+	    {
+	      insertHomerism(fout);
+	      hasHomerism = true;
+	    }
+	    fout << words[i];
+	    if (beginEndAppend == APPENDEND)
+	    {
+	      fout << ", n'stuff";
+	    }
+	    fout << ".";
+	  }
+	}
+      }
+    }
+  }
+  return 0;
+}

@@ -1,0 +1,59 @@
+/*Programmer: Christopher Torralba      Date:11/19/2015
+Instructor: Leopold
+Section: J
+Purpose: This file contains the prototypes and global constants
+         of the Pedestrian class.
+*/
+         
+#ifndef PEDESTRIAN_H
+#define PEDESTRIAN_H
+
+#include <iostream>
+#include "road.h"
+using namespace std;
+
+const short NUM_NAMES = 25;             // # possible names
+
+const string PED_NAMES[NUM_NAMES] =   // possible car
+  {"Homer", "Marge", "Bart", "Lisa",    //  owner names
+   "Maggie", "Krusty", "Ralph", "Apu",
+   "Ned", "Nelson", "Fat Tony", "Abraham",
+   "Sideshow Bob", "Nick", "Willie", "Moe",
+   "Milhouse", "Smithers", "Sideshow Mel",
+   "Radioactive Man", "Santa's Little Helper",
+   "Jimbo Jones", "Itchy", "Scratchy","Dr. Hibbert"};
+   
+class Pedestrian
+{
+  private:
+    char m_symbol;	//Symbol used to represent pedestrian
+    float m_BAC;	//Blood Alcohol Content 
+    string m_pName;	//Name for pedestrian.
+  public:
+    /*Default constructor for Pedestrian
+      Pre: None
+      Post: Pedestrian Symbol set to 'p'. BAC set to a random # between
+            00-.20. Sets a random name for pedestrian name.
+    */
+    Pedestrian();
+    
+    /*How the pedestrian is set to walk.
+      Pre: None
+      Post: Pedestrian moves based off his drunken state. Interacts with the
+            car if passes by/on the car.
+    */
+    void walk(Road& r, Car& c);
+    
+    /* Accessor for the Pedestrian Blood Alcohol Content.
+       Pre: None.
+       Post: Pedestrian's BAC is returned.
+    */
+    float getBAC() const { return m_BAC; }
+                              
+    /* Accessor for the Pedestrian's name.
+       Pre: None.
+       Post: Pedestrian's name is returned.
+    */
+    string getName() const { return m_pName; }
+};
+#endif

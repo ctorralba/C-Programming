@@ -1,0 +1,87 @@
+/*Programmer: Christopher Torralba      Date:11/9/2015
+Instructor: Leopold
+Section: J
+Purpose:  This file contains the definitions of the Car class.
+*/
+
+#include <iostream>
+#include "road.h"
+#ifndef CAR_H
+#define CAR_H
+using namespace std;
+
+const short STARTWIDTH = 4;     //starting width for car
+const short STARTDAMAGE = 0;    //starting damage for car
+const short BATTERYRANGE = 11;  //range values for % rand gen
+const short BATTERYSTART = 90;  //starting values for rand gen
+const char STARTSYMBOL = 'c';   //starting symbol for char
+const short HALFOBSWEIGHT = 2;  //half the obstacle weight (kg)
+const short TENTHOBSWEIGHT = 10;//tenth of the obstacle weight (kg)
+const short OVER100 = 100;   //used to check if values are over 100.
+const short OBSWEIGHTCHECK = 0; // used to check if obs is pos.
+const short CARPOS = 1;         //where the car will be located on the road.
+
+class Car
+{
+  private:
+    int   m_width, //# of sectors a car occupies
+          m_pos;   //position in sector
+    float m_damage,  //accumulated percentage of how damaged the car is.
+          m_battery;  //% of battery power remaining
+    char  m_symbol;  //symbol used to represent the car
+    
+  public:
+    /* Default constructor for Fraction
+       Pre: None
+       Post: width set to 4, damage set to 0, battery set to some random #
+       between 90 & 100, symbol is set to c. Sets position in sector to 1.
+    */ 
+    Car();
+    /* Accessor for width of the car.
+       Pre: None
+       Post: Value of width is returned
+    */
+    int getWidth() const { return m_width; } 
+    
+    /* Accessor for damage to the car.
+       Pre: None.
+       Post: Value of damage is returned.
+    */
+    int getDamage() const { return m_damage; }
+    
+    /* Accessor for the car's remaining battery power.
+       Pre: None.
+       Post: Value of battery is returned.
+    */
+    int getBattery() const { return m_battery; }
+    
+    /* Takes a value representing road obstacle and increases damage
+       by 1/10 of it's weight. damage is to not exceed 100.
+       Pre: None.
+       Post: Damage is increased by a 1/10 of the obstacle's value.
+    */
+    void incrBattery(int obstacleWeight);
+    
+    /* Takes a value representing road obstacle and increases damage
+         by 1/10 of it's weight. damage is to not exceed 100.
+       Pre: None.
+       Post: Damage is increased by a 1/10 of the obstacle's value.
+    */
+    void incrDamage(int obstacleWeight);
+      
+    /* Establishes a car on the road based on the width of the car.
+       The car character, and the the starting left pos of the car.
+       Pre: place car()
+       Post: a passing has been placed across the scene.
+    */     
+    void enter_a_road(Road& r);
+    
+    /* Displays the state of the car
+       Pre: None
+       Post: Car's member variable values will
+             be output to outs, modifying ostream outs.
+    */
+    friend ostream& operator<<(ostream&outs, const Car& c);
+};
+#endif
+    

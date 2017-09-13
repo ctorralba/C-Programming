@@ -1,0 +1,30 @@
+/*Programmer: Christopher Torralba      Date: 12/2/15
+Section: F
+Lab: 13
+Purpose: The header file for the linear class.
+*/
+
+#ifndef LINEAR_H
+#define LINEAR_H
+
+const int MAX = 100;
+
+template <class T>
+class Linear
+{
+  public:
+    Linear() : m_numElements(0){} //set m_numElements to 0
+    bool insert(const T e); //insert element e into the array
+    void search(const T key); //search for the element key
+    void display(); //display the elements in the array
+    bool isFull() const { return (m_numElements == MAX); } //check if the array is full
+    bool isEmpty()const { return (m_numElements == 0); }; //check if the array is empty
+    
+  private:
+    T m_data[MAX]; //create an array of size MAX
+    int m_numElements; //denotes the number of elements in the array
+};
+
+#include "linear.hpp"
+
+#endif

@@ -1,0 +1,71 @@
+/*Programmer: Christopher Torralba      Date:11/19/2015
+Instructor: Leopold
+Section: J
+Purpose: This file contains the prototypes and global constants 
+         of the Animal class.
+*/
+
+#include <iostream>
+#ifndef ANIMAL_H
+#define ANIMAL_H
+using namespace std;
+
+const short POSCHECK = 0;    //check to see if values are pos
+const short OVERSTUPID = 100;//check to see stupidity is over 100.
+class Animal
+{
+  private:
+    string m_species; //A string for the animal name
+    int m_weight, //how much animmals weighs in kg.
+        m_width, //the num of sectors it occupies
+        m_stupidity; //% value (0 to 100) determining if
+                     //the animal runs to the road.
+                     
+    /*  Depending on the animal's stupidity level it will decide to
+        run or not.
+        Pre: Animal stupidity level is already declared.
+        Post: Output a true if the stupidity level reaches a point. false
+        if it doesn't
+    */
+   bool choose_to_run();
+    
+  public:
+  static const char m_Symbol = 'a';
+    /* Constructor to take species weight, width, and stupidity.
+       Pre: weight, width, and stupidity should have a value.
+       Post: mem Weight set to weight, mem width set to width, mem stupidity
+       set to stupidity.
+    */ 
+    //Animal(const string species, const int weight, const int width,
+    //       const int stupidity);
+           
+    /*  Accessor function for width
+        Pre: None
+        Post: Value for width is returned
+    */
+    int getWidth() const { return m_width; }
+    
+    /*  Accessor function for weight
+        Pre: None
+        Post: Value for weight is returned
+    */
+    int getWeight() const { return m_weight; }
+    
+    /*  Depending on the animal's stupidity level it will decide to
+          run or not.
+        Pre: Animal stupidity level is already declared.
+        Post: Output a true if the stupidity level reaches a point. false
+          if it doesn't
+    */
+    bool choose_to_run(const int runStupidity) const
+         {return (m_stupidity >= runStupidity);}
+    
+    /* Displays the state of the road
+       Pre: None
+       Post: Animal's member variable values will
+             be output to outs, modifying ostream outs.
+    */
+    friend ostream& operator<<(ostream&outs, const Animal& a);
+}; 
+#endif
+    

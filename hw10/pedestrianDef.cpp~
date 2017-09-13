@@ -1,0 +1,77 @@
+/*Programmer: Christopher Torralba	Date: 11/20/15
+Section: J
+Instructor: Leopold
+Purpose: Hold the implementation file for the pedestrian class.
+*/
+
+#include "pedestrian.h"
+#include "road.h"
+#include "car.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+Pedestrian::Pedestrian()
+{
+  short randNameNum;
+  
+  m_symbol = 'P';
+  m_BAC = (static_cast<float>((rand() % 21))/100);
+  randNameNum = rand() % 25;
+  m_pName = PED_NAMES[randNameNum];
+  return;  
+}
+
+void Pedestrian::walk(Road& r, Car& c)
+{
+  Pedestrian p1;
+  short walkCounter = 0;
+  short position = 0;
+  short drunkMove;
+  do
+  {
+    if (m_BAC < .10)
+    {
+      r.place_obj(1, position + walkCounter, m_symbol);
+      for (short i = 0; i <= r.getWidth(); i++)
+      {
+        if ((r.getSectorCar(i) == 'c') && (r.getSectorPerson(i) == 'P'))
+        {
+          c.setDamage(c.getDamage()-1);
+        }
+      }
+      cout << r << endl;
+      walkCounter++;
+    }  
+    else
+    {
+      r.place_obj(1, position + walkCounter, m_symbol);
+      for (short i = 0; i <= r.getWidth(); i++)
+      {
+        if ((r.getSectorCar(i) == 'c') && (r.getSectorPerson(i) == 'P'))
+        {
+          c.setDamage(c.getDamage()+1);
+        }
+      }
+      drunkMove = rand() % 4;
+      if (drunkMove == 0)
+      {
+        walkCounter--;
+        if ((position + walkCounter) < 0)
+        {
+          walkCounter = 0;
+        }
+      }
+      else
+      {
+        walkCounter ++;
+      }
+      cout << r << endl;               
+    }
+  }while ((position + walkCounter) != r.getWidth());
+  cout << r.getWidth() << "is the getWidth" << endl;
+  r.place_obj(1, r.getWidth(), m_symbol);
+  cout << endl;
+  return;
+}
